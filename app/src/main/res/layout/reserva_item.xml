@@ -8,6 +8,8 @@
         android:id="@+id/item_imatge_material"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:padding="16dp"
+        android:src="@drawable/baseline_hourglass_top_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@id/item_descripcio_reserva"
-        app:layout_constraintBottom_toBottomOf="@id/item_imatge_material"     >
+        app:layout_constraintTop_toBottomOf="@id/item_descripcio_reserva"     >
 
         <TextView
             android:id="@+id/item_inici_reserva"
