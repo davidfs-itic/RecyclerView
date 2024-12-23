@@ -7,13 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerview.R
-import org.w3c.dom.Text
 
 class ReservaAdapter(var llistatreserves:List<Reserva>):RecyclerView.Adapter<ReservaAdatperHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservaAdatperHolder {
         var iteminflater=LayoutInflater.from(parent.context)
         var recycleritem=iteminflater.inflate(R.layout.reserva_item,parent,false)
-        return ReservaAdatperHolder(recycleritem)
+        var holder=ReservaAdatperHolder(recycleritem)
+
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -23,6 +24,23 @@ class ReservaAdapter(var llistatreserves:List<Reserva>):RecyclerView.Adapter<Res
     override fun onBindViewHolder(holder: ReservaAdatperHolder, position: Int) {
         val reserva=llistatreserves.get(position)
         holder.Renderitzar(reserva)
+        holder.itemView.setOnClickListener {
+            this.reservaClick?.invoke(holder,reserva,position)
+        }
+
+        holder.imatgeMaterial.setOnClickListener{
+            this.imatgeClick?.invoke(holder,reserva,position)
+        }
+    }
+
+    private var reservaClick: ((holder:ReservaAdatperHolder,model:Reserva,position:Int) -> Unit)? =null
+    public fun setOnReservaClick( reservaClickCallback: (holder: ReservaAdatperHolder,model:Reserva,position:Int)->Unit){
+        this.reservaClick=reservaClickCallback
+    }
+
+    private var imatgeClick: ((holder:ReservaAdatperHolder,model:Reserva,position:Int) -> Unit)? =null
+    public fun setOnImatgeClick( imatgeClickCallback: (holder: ReservaAdatperHolder,model:Reserva,position:Int)->Unit){
+        this.imatgeClick=imatgeClickCallback
     }
 }
 

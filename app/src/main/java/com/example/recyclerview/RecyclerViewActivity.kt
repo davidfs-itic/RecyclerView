@@ -1,6 +1,8 @@
 package com.example.recyclerview
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,7 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.recyclerview.reserves.Reserva
 import com.example.recyclerview.reserves.ReservaAdapter
+import com.example.recyclerview.reserves.ReservaAdatperHolder
 import com.example.recyclerview.reserves.ReservesProvider
 
 class RecyclerViewActivity : AppCompatActivity() {
@@ -24,9 +28,20 @@ class RecyclerViewActivity : AppCompatActivity() {
         var rv:RecyclerView=findViewById(R.id.recycler_rvreserves)
         var llistatreserves=ReservesProvider.Reserves
 
+
+
         rv.layoutManager=LinearLayoutManager(this)
-        rv.adapter=ReservaAdapter(llistatreserves)
+        var reservaadapter=ReservaAdapter(llistatreserves)
+        reservaadapter.setOnReservaClick(this::reservaclick)
+        reservaadapter.setOnImatgeClick(this::reservaImatgeclick)
+        rv.adapter=reservaadapter
 
+    }
 
+    private fun reservaclick(holder: ReservaAdatperHolder, model: Reserva, position:Int):Unit {
+        Log.i("ReservaClick","Reserva"+model.idreserva.toString())
+    }
+    private fun reservaImatgeclick(holder: ReservaAdatperHolder, model: Reserva, position:Int):Unit {
+        Log.i("reservaImatgeclick","Reserva"+model.idreserva.toString())
     }
 }
