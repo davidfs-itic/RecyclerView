@@ -3,10 +3,12 @@ package com.example.recyclerview
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,20 +34,22 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
         var rv:RecyclerView=findViewById(R.id.recycler_rvreserves)
         //var llistatreserves=ReservesProvider.Reserves
-
-
+        var progressbar:ProgressBar=findViewById(R.id.pbwait)
+        progressbar.isVisible=true
 
         rv.layoutManager=LinearLayoutManager(this)
 
         var service= ReservesAPI.API()
         lifecycleScope.launch(Dispatchers.IO) {
             val llistatreservesapi=service.llistaReserves(3)
+
             Log.i("recyclerview",llistatreservesapi.size.toString())
             withContext(Dispatchers.Main) {
                 var reservaadapter=ReservaAdapter(llistatreservesapi)
                 reservaadapter.setOnReservaClick( this@RecyclerViewActivity::reservaclick)
                 reservaadapter.setOnImatgeClick(this@RecyclerViewActivity::reservaImatgeclick)
                 rv.adapter=reservaadapter
+                progressbar.isVisible=false
             }
         }
 
