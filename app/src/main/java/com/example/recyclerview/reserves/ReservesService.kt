@@ -30,14 +30,50 @@ class ReservesAPI{
         @Synchronized
         fun API(): ReservesService {
             if (mAPI == null){
+                val client: OkHttpClient = getUnsafeOkHttpClient()
                 mAPI = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl("https://192.168.1.101:8443")
+                    .client(getUnsafeOkHttpClient())
                     .build()
                     .create(ReservesService::class.java)
             }
             return mAPI!!
         }
 
+    }
+}
+private fun getUnsafeOkHttpClient(): OkHttpClient {
+    try {
+        // Create a trust manager that does not validate certificate chains
+        val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
+            @Throws(CertificateException::class)
+            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+
+            @Throws(CertificateException::class)
+            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+            }
+
+            override fun getAcceptedIssuers(): Array<X509Certificate> {
+                return arrayOf()
+            }
+        }
+        )
+
+        // Install the all-trusting trust manager
+        val sslContext = SSLContext.getInstance("SSL")
+        sslContext.init(null, trustAllCerts, SecureRandom())
+        // Create an ssl socket factory with our all-trusting manager
+        val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
+
+        val builder = OkHttpClient.Builder()
+        builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+        builder.hostnameVerifier { hostname, session -> true }
+
+        val okHttpClient = builder.build()
+        return okHttpClient
+    } catch (e: Exception) {
+        throw RuntimeException(e)
     }
 }
