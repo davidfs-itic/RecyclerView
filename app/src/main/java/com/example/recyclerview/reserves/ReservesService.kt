@@ -31,8 +31,11 @@ class ReservesAPI{
         fun API(): ReservesService {
             if (mAPI == null){
                 val client: OkHttpClient = getUnsafeOkHttpClient()
+                val gsondateformat= GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                    .create();
                 mAPI = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gsondateformat))
                     .baseUrl("https://192.168.1.101:8443")
                     .client(getUnsafeOkHttpClient())
                     .build()
