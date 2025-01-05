@@ -18,6 +18,7 @@ import com.example.recyclerview.reserves.ReservesAPI
 import com.example.recyclerview.reserves.ReservesProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,20 +31,22 @@ class RecyclerViewActivity : AppCompatActivity() {
             insets
         }
         var rv:RecyclerView=findViewById(R.id.recycler_rvreserves)
-        var llistatreserves=ReservesProvider.Reserves
+        //var llistatreserves=ReservesProvider.Reserves
 
 
 
         rv.layoutManager=LinearLayoutManager(this)
-        var reservaadapter=ReservaAdapter(llistatreserves)
-        reservaadapter.setOnReservaClick(this::reservaclick)
-        reservaadapter.setOnImatgeClick(this::reservaImatgeclick)
-        rv.adapter=reservaadapter
 
         var service= ReservesAPI.API()
         lifecycleScope.launch(Dispatchers.IO) {
             val llistatreservesapi=service.llistaReserves(3)
             Log.i("recyclerview",llistatreservesapi.size.toString())
+            withContext(Dispatchers.Main) {
+                var reservaadapter=ReservaAdapter(llistatreservesapi)
+                reservaadapter.setOnReservaClick( this@RecyclerViewActivity::reservaclick)
+                reservaadapter.setOnImatgeClick(this@RecyclerViewActivity::reservaImatgeclick)
+                rv.adapter=reservaadapter
+            }
         }
 
 
