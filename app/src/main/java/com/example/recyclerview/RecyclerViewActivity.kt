@@ -7,13 +7,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.recyclerview.reserves.Reserva
 import com.example.recyclerview.reserves.ReservaAdapter
 import com.example.recyclerview.reserves.ReservaAdatperHolder
+import com.example.recyclerview.reserves.ReservesAPI
 import com.example.recyclerview.reserves.ReservesProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +39,13 @@ class RecyclerViewActivity : AppCompatActivity() {
         reservaadapter.setOnReservaClick(this::reservaclick)
         reservaadapter.setOnImatgeClick(this::reservaImatgeclick)
         rv.adapter=reservaadapter
+
+        var service= ReservesAPI.API()
+        lifecycleScope.launch(Dispatchers.IO) {
+            val llistatreservesapi=service.llistaReserves(3)
+            Log.i("recyclerview",llistatreservesapi.size.toString())
+        }
+
 
     }
 
