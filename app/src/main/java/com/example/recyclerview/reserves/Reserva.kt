@@ -1,9 +1,19 @@
 package com.example.recyclerview.reserves
 
+import com.google.gson.annotations.SerializedName
 import java.time.Instant
 import java.util.Date
 
-data class Reserva(val idreserva:Int,val idmaterial:Int,val idusuari:Int,val datareserva:Date?,val datafinal:Date?,val descripcio:String,val imatge:String?)
+data class Reserva(
+    @SerializedName("id")
+    val idreserva: Int,
+    val idmaterial: Int,
+    val idusuari: Int,
+    val datareserva: Date?,
+    val datafinal: Date?,
+    val descripcio: String,
+    val imatge: String?
+)
 
 class ReservesProvider{
     companion object {

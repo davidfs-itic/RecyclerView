@@ -1,8 +1,11 @@
 package com.example.recyclerview
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +35,8 @@ class RecyclerViewActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        var btnafgir=findViewById<ImageButton>(R.id.recycler_afegirReserva)
+        btnafgir.setOnClickListener(this::afegirReservaclick)
         var rv:RecyclerView=findViewById(R.id.recycler_rvreserves)
         //var llistatreserves=ReservesProvider.Reserves
         var progressbar:ProgressBar=findViewById(R.id.pbwait)
@@ -52,12 +57,18 @@ class RecyclerViewActivity : AppCompatActivity() {
                 progressbar.isVisible=false
             }
         }
+    }
 
+    private fun afegirReservaclick(view: View?) {
+        val intent = Intent(this, AfegirReservaActivity::class.java)
+        intent.putExtra("message", "Hello from the first activity!")
+        startActivity(intent)
 
     }
 
     private fun reservaclick(holder: ReservaAdatperHolder, model: Reserva, position:Int):Unit {
         Log.i("ReservaClick","Reserva"+model.idreserva.toString())
+
     }
     private fun reservaImatgeclick(holder: ReservaAdatperHolder, model: Reserva, position:Int):Unit {
         Log.i("reservaImatgeclick","Reserva"+model.idreserva.toString())

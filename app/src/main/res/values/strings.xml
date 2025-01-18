@@ -3,4 +3,6 @@
     <string name="llistat_reserves">Llistat Reserves</string>
     <string name="afegir_reserva">Afegir Reserva</string>
     <string name="obrir_llistat">Obrir llistat</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fes_clic_per_seleccionar_la_data">Fes clic per seleccionar la data</string>
 </resources>
