@@ -1,4 +1,9 @@
-package com.example.recyclerview.materials
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class Material(var id:Int,var descripcio:String,var imatge:String) {
-}
+@Parcelize
+data class Material(
+    val id: Int,
+    val descripcio: String,
+    val imatge: String
+) : Parcelable

@@ -50,6 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:gravity=""
                         android:padding="8dp">
 
                         <TextView
@@ -58,14 +59,11 @@
                             android:text="Material:"
                             android:textSize="24sp" />
 
-                        <TextView
-                            android:id="@+id/afegirreserva_txtmaterial"
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/afegirreserva_fragmentMaterial"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="234"
-                            android:textAlignment="textEnd"
-                            android:textSize="24sp" />
+                            android:layout_height="64dp"
+                            android:layout_weight="1" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -85,9 +83,10 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="24sp"
                             android:layout_height="wrap_content"
-                            android:text="Data Inici" />
+                            android:text="Data Inici"
+                            android:textSize="24sp" />
+
                         <EditText
                             android:id="@+id/afegirreserva_eddatainici"
                             android:layout_width="match_parent"
@@ -116,9 +115,10 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:textSize="24sp"
                             android:layout_height="wrap_content"
-                            android:text="Data Final" />
+                            android:text="Data Final"
+                            android:textSize="24sp" />
+
                         <EditText
                             android:id="@+id/afegirreserva_eddatafi"
                             android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.recyclerview.materials
 
+import Material
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recyclerview.R
-import com.example.recyclerview.reserves.ReservaAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class Bottom_Material(

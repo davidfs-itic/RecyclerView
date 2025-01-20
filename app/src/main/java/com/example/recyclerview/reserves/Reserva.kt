@@ -1,9 +1,12 @@
 package com.example.recyclerview.reserves
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 import java.time.Instant
 import java.util.Date
 
+@Parcelize
 data class Reserva(
     @SerializedName("id")
     val idreserva: Int,
@@ -13,7 +16,7 @@ data class Reserva(
     val datafinal: Date?,
     val descripcio: String,
     val imatge: String?
-)
+):Parcelable
 
 class ReservesProvider{
     companion object {

@@ -1,10 +1,14 @@
 package com.example.recyclerview.reserves
 
+import Material
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import java.security.SecureRandom
 import java.security.cert.CertificateException
@@ -19,6 +23,13 @@ interface ReservesService {
 
      @GET ("reserves/usuari/{idusuari}")
      suspend fun llistaReserves ( @Path("idusuari") idusuari:Int):List<Reserva>
+
+     @GET("materials/")
+     suspend fun llistaMaterials():Response<List<Material>>
+
+     @POST ("reserves/")
+     suspend fun afegirReserva(@Body reserva:Reserva): Response<Void>
+
 }
 
 class ReservesAPI{

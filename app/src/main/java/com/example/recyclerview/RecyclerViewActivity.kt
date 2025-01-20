@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,7 +27,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
+public const val ARG_RESERVA = "material"
+
 class RecyclerViewActivity : AppCompatActivity() {
+
+    private lateinit var rv:RecyclerView
+    private lateinit var progressbar:ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,13 +46,18 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
         var btnafgir=findViewById<ImageButton>(R.id.recycler_afegirReserva)
         btnafgir.setOnClickListener(this::afegirReservaclick)
-        var rv:RecyclerView=findViewById(R.id.recycler_rvreserves)
+        rv=findViewById(R.id.recycler_rvreserves)
         //var llistatreserves=ReservesProvider.Reserves
-        var progressbar:ProgressBar=findViewById(R.id.pbwait)
-        progressbar.isVisible=true
+        progressbar=findViewById(R.id.pbwait)
+
 
         rv.layoutManager=LinearLayoutManager(this)
 
+        actualitzaReserves()
+    }
+
+    private fun actualitzaReserves() {
+        progressbar.isVisible=true
         var service= ReservesAPI.API()
         lifecycleScope.launch(Dispatchers.IO) {
             val llistatreservesapi=service.llistaReserves(3)
@@ -61,11 +75,22 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     private fun afegirReservaclick(view: View?) {
         val intent = Intent(this, AfegirReservaActivity::class.java)
-        intent.putExtra("message", "Hello from the first activity!")
-        startActivity(intent)
-
+        //intent.putExtra("message", "Hello from the first activity!")
+        //startActivity(intent)
+        afegirReservaLauncher.launch(intent)
     }
 
+    private val afegirReservaLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val reservaAfegida = result.data?.extras?.getParcelable<Reserva>(ARG_RESERVA)
+            if (reservaAfegida !=null) {
+                Toast.makeText(this, "Reserva afegida correctament", Toast.LENGTH_SHORT).show()
+                this.actualitzaReserves()
+            }
+        } else if (result.resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "No s'ha afegit cap reserva", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun reservaclick(holder: ReservaAdatperHolder, model: Reserva, position:Int):Unit {
         Log.i("ReservaClick","Reserva"+model.idreserva.toString())
 
