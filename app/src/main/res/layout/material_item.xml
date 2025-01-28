@@ -11,9 +11,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:padding="16dp"
-        android:src="@drawable/baseline_hourglass_top_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/baseline_hourglass_top_24" />
 
     <TextView
         android:id="@+id/materialitem_descripcio_material"

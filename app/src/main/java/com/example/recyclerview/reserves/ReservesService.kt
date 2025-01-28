@@ -47,7 +47,7 @@ class ReservesAPI{
                     .create();
                 mAPI = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(gsondateformat))
-                    .baseUrl("https://daviditic.mooo.com:8443")
+                    .baseUrl("https://3.85.179.9")
                     .client(getUnsafeOkHttpClient())
                     .build()
                     .create(ReservesService::class.java)
