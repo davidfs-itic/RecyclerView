@@ -1,8 +1,11 @@
-package com.example.recyclerview.reserves
+package com.example.recyclerview.login
 
-import Material
+import com.example.recyclerview.reserves.Reserva
+import com.example.recyclerview.reserves.ReservesService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,38 +22,38 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 
-interface ReservesService {
 
-     @GET ("reserves/usuari/{idusuari}")
-     suspend fun llistaReserves ( @Path("idusuari") idusuari:Int):List<Reserva>
+interface LoginService {
 
-     @GET("materials/")
-     suspend fun llistaMaterials():Response<List<Material>>
+    @POST("registre/")
+    suspend fun afegirUsuari (@Body usuari:Usuari):Response<Void>
 
-     @POST ("reserves/")
-     suspend fun afegirReserva(@Body reserva:Reserva): Response<Void>
+    @POST("login/")
+    suspend fun login(@Body usuari: Usuari): Response<Usuari>
 
 }
 
-class ReservesAPI{
+class LoginAPI{
     companion object  {
-        private var mAPI : ReservesService? = null
+        private var mAPI : LoginService? = null
 
         //L'anotador per a que sigui thread-safe
         //https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-synchronized/
         @Synchronized
-        fun API(): ReservesService {
+        fun API(): LoginService {
             if (mAPI == null){
+
                 val client: OkHttpClient = getUnsafeOkHttpClient()
+
                 val gsondateformat= GsonBuilder()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                     .create();
                 mAPI = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(gsondateformat))
-                    .baseUrl("https://3.233.122.159")
-                    .client(getUnsafeOkHttpClient())
+                    .baseUrl("https://3.233.122.159:8443")
+                    .client(client)
                     .build()
-                    .create(ReservesService::class.java)
+                    .create(LoginService::class.java)
             }
             return mAPI!!
         }
@@ -84,6 +87,10 @@ private fun getUnsafeOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
         builder.hostnameVerifier { hostname, session -> true }
+
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY) // Mostra cos de la petició i resposta
+        builder.addInterceptor(logging)
 
         val okHttpClient = builder.build()
         return okHttpClient
