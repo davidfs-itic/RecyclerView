@@ -51,9 +51,12 @@ class MainActivity : AppCompatActivity() {
     private fun doLogin(view: View?) {
         binding.mainProgressbar.visibility= View.VISIBLE
         var usuari = Usuari(
+            id_usuari = null,
             nom_usuari = "",
             email = binding.email.text.toString(),
             contrassenya = binding.contrassenya.text.toString(),
+            token = null,
+            tipus_token = null
         )
 
         lifecycleScope.launch(Dispatchers.Main) {
@@ -62,7 +65,6 @@ class MainActivity : AppCompatActivity() {
                 LoginAPI.API().login(usuari)
             }
             Log.i("",result.raw().message)
-
 
             if (result.isSuccessful) {
                 val i = Intent(this@MainActivity, RecyclerViewActivity::class.java)
