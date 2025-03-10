@@ -8,7 +8,7 @@ class ActivityRegistreViewModelTest {
 
 
     @Test
-    fun `comprovadadesusuari retorna error quan el nom d'usuari està buit`() {
+    fun `actualitzanomUsuari retorna error quan el nom d'usuari està buit`() {
 
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("")
@@ -17,7 +17,7 @@ class ActivityRegistreViewModelTest {
     }
 
     @Test
-    fun `comprovadadesusuari retorna error comença per simbol`() {
+    fun `actualitzanomUsuari retorna error comença per simbol`() {
 
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("&usuari")
