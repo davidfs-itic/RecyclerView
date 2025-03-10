@@ -1,7 +1,6 @@
 import com.example.recyclerview.reserves.Reserva
 import com.example.recyclerview.reserves.ReservesService
 import com.example.recyclerview.reserves.toDate
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -13,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.google.gson.GsonBuilder
 import org.junit.Assert.assertEquals
 
-class ReservesServiceTest {
+class ReservesServiceIntegrationTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var reservesService: ReservesService

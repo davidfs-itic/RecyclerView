@@ -60,6 +60,14 @@
                 android:hint="Contrasenya"
                 android:inputType="textPassword" />
 
+            <EditText
+                android:id="@+id/reg_contrassenya2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:hint="Validar Contrasenya"
+                android:inputType="textPassword" />
+
             <Button
                 android:id="@+id/reg_btnregistre"
                 android:layout_width="match_parent"

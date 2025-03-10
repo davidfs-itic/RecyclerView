@@ -37,6 +37,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    testOptions {
+        animationsDisabled = true
+    }
 }
 dependencies {
     // retrofit
@@ -48,11 +51,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.logging.interceptor)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation( libs.kotlin.parcelize.runtime)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockwebserver)
+    testImplementation (libs.mockito.core) // Mockito core
+    testImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
+    androidTestImplementation (libs.mockito.core) // Mockito core
+    androidTestImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
 }
