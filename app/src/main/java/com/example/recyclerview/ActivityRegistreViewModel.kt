@@ -18,7 +18,12 @@ class ActivityRegistreViewModel : ViewModel() {
     private var _email :String=""
     private var _contrassenya :String=""
 
-    private val _validaciodades = MutableLiveData<EstatRegistre>()
+    private val _validaciodades = MutableLiveData<EstatRegistre>(EstatRegistre(
+        esValid = false,
+        errorNomUsuari = "",
+        errorEmail = "",
+        errorContrassenya = ""
+    ))
     val validaciodades: LiveData<EstatRegistre> = _validaciodades
 
 
@@ -27,11 +32,11 @@ class ActivityRegistreViewModel : ViewModel() {
         comprova_nomusuari()
     }
 
-    private fun comprova_nomusuari() {
-        if (_nomUsuari.isEmpty()) {
-            _validaciodades.value?.errorNomUsuari = "El nom d'usuari és obligatori"
+        private fun comprova_nomusuari() {
+            if (_nomUsuari.isEmpty()) {
+                _validaciodades.value?.errorNomUsuari = "El nom d'usuari és obligatori"
+            }
         }
-    }
     fun actualitzaemail(email:String){
         TODO("Actualitza el livedata i fes les comprovacions.")
     }

@@ -82,7 +82,7 @@ class AfegirReservaActivity : AppCompatActivity() {
                     Log.i( "AfegirReservaActivity","Reserva Afegida correctament")
                 }else
                 {
-                    Toast.makeText( this@AfegirReservaActivity,"Error afegint reserva ${response.message()}", Toast.LENGTH_LONG).show()
+                    //Toast.makeText( this,"Error afegint reserva ${response.message()}", Toast.LENGTH_LONG).show()
                 }
             }
 
