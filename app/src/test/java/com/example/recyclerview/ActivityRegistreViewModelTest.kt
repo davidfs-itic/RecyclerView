@@ -22,7 +22,7 @@ class ActivityRegistreViewModelTest {
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("&usuari")
 
-        assertEquals("El nom  d'usuari no pot començar per símbol", viewModel.validaciodades.value?.errorNomUsuari)
+        assertEquals("El nom  d'usuari no pot començar per símbol", viewModel.errorNomUsuari)
     }
 
 
