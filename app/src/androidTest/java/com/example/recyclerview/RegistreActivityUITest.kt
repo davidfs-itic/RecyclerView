@@ -39,5 +39,4 @@ class RegistreActivityUITest {
         onView(withId(R.id.reg_nomusuari))
             .check(matches(hasErrorText("El nom d'usuari és obligatori")))
     }
-
 }
