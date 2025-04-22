@@ -12,8 +12,8 @@ class ActivityRegistreViewModelTest {
 
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("")
-
-        assertEquals("El nom d'usuari és obligatori", viewModel.validaciodades.value?.errorNomUsuari)
+        viewModel.comprovadadesusuari()
+        assertEquals("El nom d'usuari és obligatori", viewModel.errorNomUsuari)
     }
 
     @Test
