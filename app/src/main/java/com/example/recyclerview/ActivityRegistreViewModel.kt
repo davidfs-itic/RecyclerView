@@ -24,14 +24,13 @@ class ActivityRegistreViewModel : ViewModel() {
 
 
 
-    private fun comprova_nomusuari() {
+    public fun comprova_nomusuari() {
 
         if (_nomUsuari.isEmpty()) {
             _errorNomUsuari.value = "El nom d'usuari és obligatori"
         }else{
             _errorNomUsuari.value = ""
         }
-
     }
     fun actualitzaemail(email:String){
         TODO("Actualitza el livedata i fes les comprovacions.")

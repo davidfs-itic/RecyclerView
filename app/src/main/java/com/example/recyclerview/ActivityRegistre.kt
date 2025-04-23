@@ -30,7 +30,6 @@ class ActivityRegistre : AppCompatActivity() {
             model.actualitzanomUsuari(it.toString())
         }
 
-
         binding.regBtnregistre.setOnClickListener(this::registrarusuari)
 
         model.errorNomUsuari.observe(this) { errorNomUsuari ->

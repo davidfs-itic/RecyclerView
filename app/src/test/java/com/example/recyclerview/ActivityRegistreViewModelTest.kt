@@ -1,8 +1,13 @@
 import com.example.recyclerview.ActivityRegistreViewModel
 import org.junit.Assert.*
 import org.junit.Test
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import org.junit.Rule
 
 class ActivityRegistreViewModelTest {
+
+    @get:Rule
+    val instantExecutorRule = InstantTaskExecutorRule()
 
     private val viewModel = ActivityRegistreViewModel()
 
@@ -12,8 +17,8 @@ class ActivityRegistreViewModelTest {
 
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("")
-        viewModel.comprovadadesusuari()
-        assertEquals("El nom d'usuari és obligatori", viewModel.errorNomUsuari)
+        viewModel.comprova_nomusuari()
+        assertEquals("El nom d'usuari és obligatori", viewModel.errorNomUsuari.value)
     }
 
     @Test
@@ -21,9 +26,7 @@ class ActivityRegistreViewModelTest {
 
         // Dades d'entrada amb nom d'usuari buit
         viewModel.actualitzanomUsuari("&usuari")
-
-        assertEquals("El nom  d'usuari no pot començar per símbol", viewModel.errorNomUsuari)
+        viewModel.comprova_nomusuari()
+        assertEquals("El nom  d'usuari no pot començar per símbol", viewModel.errorNomUsuari.value)
     }
-
-
 }

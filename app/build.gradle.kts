@@ -63,4 +63,6 @@ dependencies {
     testImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
     androidTestImplementation (libs.mockito.core) // Mockito core
     androidTestImplementation (libs.mockito.kotlin )// Mockito per a Kotlin
+    // Per a tests amb LiveData
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
 }
